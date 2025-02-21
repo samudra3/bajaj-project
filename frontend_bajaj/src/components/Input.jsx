@@ -29,27 +29,18 @@ export default function JsonForm() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const parsedJson = JSON.parse(jsonInput);
-            const response = await fetch('http://localhost:5000/api/submit-json', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(parsedJson)
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setIsJsonSubmitted(true);
-                setDropdownOptions(data.dropdownOptions); // Set dropdown options from backend
-                setJsonInput('');
-                setError(null);
-                alert(data.message);
-            } else {
-                setError(data.error);
-            }
-        } catch (err) {
-            setError('Error submitting JSON: ' + err.message);
-        }
+      e.preventDefault();
+      try {
+        const parsedJson = JSON.parse(jsonInput);
+        const response = await fetch('/api/submit-json', { // Relative path
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(parsedJson)
+        });
+        // ... rest of your code
+      } catch (err) {
+        setError('Error submitting JSON: ' + err.message);
+      }
     };
 
     // New function to submit dropdown selections
